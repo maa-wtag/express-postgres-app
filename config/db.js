@@ -14,7 +14,7 @@ const pool = new Pool({
   max: 20, // Maximum number of clients in the pool
   idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
   connectionTimeoutMillis: 2000, // How long to wait for a connection
-  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  // connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
   ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
 
@@ -52,6 +52,23 @@ async function transferFunds(fromAccountId, toAccountId, amount) {
     client.release();
   }
 }
+
+// const { Sequelize, DataTypes } = require("sequelize");
+// const sequelize = new Sequelize(/* connection config */);
+
+// const User = sequelize.define("User", {
+//   name: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   email: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//     unique: true,
+//   },
+// });
+
+// module.exports = User;
 
 module.exports = {
   query: (text, params) => pool.query(text, params),
